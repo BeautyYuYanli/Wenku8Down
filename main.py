@@ -8,6 +8,7 @@ def getpage(url):
 base_url = input('input base_url:')
 page = BeautifulSoup(getpage(base_url), 'lxml')
 name = page.title.string.replace('\n', '').replace(' ', '').split('小说在线阅读')[0]
+# name = '妹妹'
 osbase = 'output/' + name
 try:
     os.mkdir(osbase)
@@ -28,9 +29,12 @@ for row in page.select('tr'):
             except:
                 pass
             else:
-                result[-1]['contents'].append({'url': al['href'],\
+                try:
+                    result[-1]['contents'].append({'url': al['href'],\
                     'title': al.string.replace(' ', '').replace('\n', ''), \
                     'content': ''})
+                except:
+                    pass
 # get contents
 for juan in result:
     for zhang in juan['contents']:
